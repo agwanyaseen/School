@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Mvc;
+using School.Dto.DomainModels;
+using School.Lib.DAL.Context;
 
 namespace School.Controllers
 {
@@ -10,24 +13,31 @@ namespace School.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private SchoolContext _schoolContext;
+
+        public ValuesController(SchoolContext context)
+        {
+            _schoolContext = context;
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+          return null;
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            
         }
 
         // PUT api/values/5

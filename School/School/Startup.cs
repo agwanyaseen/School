@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
+using School.Lib.DAL.Context;
+using School.Middlewares;
 namespace School
 {
     public class Startup
@@ -24,6 +26,7 @@ namespace School
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<SchoolContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -32,9 +35,11 @@ namespace School
         {
             if (env.IsDevelopment())
             {
+                app.UseErrorHandler();
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseErrorHandler();
             app.UseMvc();
         }
     }
