@@ -29,5 +29,14 @@ namespace School.Shared
                 return BadRequest(resp);
             }
         }
+
+        public IActionResult FromResult(Maybe<object> result)
+        {
+            var resp = new ResultClass<object>()
+            {
+                Result = result.Value
+            };
+            return Ok(resp);
+        }
     }
 }
