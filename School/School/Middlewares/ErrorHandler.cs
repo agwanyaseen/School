@@ -60,13 +60,20 @@ namespace School.Middlewares
         public T Result { get; set; }
 
         [JsonProperty("error")]
-        public string Error { get; set; }
+        public T Error { get; set; }
 
-        public ResultClass(T result, string error)
+
+        public ResultClass()
+        {
+
+        }
+
+        public ResultClass(T result, T error)
         {
             Result = result;
             Error = error;
         }
+
 
     }
 }

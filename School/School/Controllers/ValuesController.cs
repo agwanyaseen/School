@@ -6,12 +6,12 @@ using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Mvc;
 using School.Dto.DomainModels;
 using School.Lib.DAL.Context;
-
+using Newtonsoft.Json;
 namespace School.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ValuesController : BaseAppController
     {
         private SchoolContext _schoolContext;
 
@@ -21,16 +21,48 @@ namespace School.Controllers
         }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IActionResult Get()
         {
-            return null;
+            var user = new List<UserType>()
+            {
+                new UserType()
+                {
+                    TypeId = 1,
+                    TypeName = "BAC"
+                },
+                new UserType()
+                {
+                    TypeId = 2,
+                    TypeName = "BAC"
+                },
+
+            };
+            var json = JsonConvert.SerializeObject(user,Formatting.Indented);
+            var a = CSharpFunctionalExtensions.Result.Success<string>(json);
+            return base.FromResult(a);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public IActionResult Get(int id)
         {
-          return null;
+            var user = new List<UserType>()
+            {
+                new UserType()
+                {
+                    TypeId = 1,
+                    TypeName = "BAC"
+                },
+                new UserType()
+                {
+                    TypeId = 2,
+                    TypeName = "BAC"
+                },
+
+            };
+            var json = JsonConvert.SerializeObject(user);
+            var a = CSharpFunctionalExtensions.Result.Failure<string>(json);
+            return base.FromResult(a);
         }
 
         // POST api/values
