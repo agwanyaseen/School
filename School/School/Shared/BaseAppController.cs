@@ -5,38 +5,41 @@ using System.Linq;
 using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 using School.Middlewares;
+using School.Dto.DomainModels;
 
 namespace School.Shared
 {
     public class BaseAppController : ControllerBase
     {
-        public IActionResult FromResult<T>(Result<T> result)
-        {
-            if (result.IsSuccess)
-            {
-                var resp = new ResultClass<T>()
-                {
-                    Result = result.Value
-                };
-                return Ok(resp);
-            }
-            else
-            {
-                var resp = new ResultClass<string>()
-                {
-                    Error = result.Error
-                };
-                return BadRequest(resp);
-            }
-        }
+        //public IActionResult FromResult<T>(Result<T> result)
+        //{
+        //    if (result.IsSuccess)
+        //    {
+        //        var resp = new ResultClass()
+        //        {
+        //            Result = result.Value
+        //        };
+        //        return Ok(resp);
+        //    }
+        //    else
+        //    {
+        //        var resp = new ResultClass()
+        //        {
+        //            Error = result.Error
+        //        };
+        //        return BadRequest(resp);
+        //    }
+        //}
 
-        public IActionResult FromResult(Maybe<object> result)
+        //public IActionResult FromResult(object result)
+        //{
+        //    var resp = new ResultClass(result, null);
+        //    var a = Ok(resp);
+        //    return a;
+        //}
+        internal IActionResult FromResult(Maybe<object> users)
         {
-            var resp = new ResultClass<object>()
-            {
-                Result = result.Value
-            };
-            return Ok(resp);
+            return Ok(new ResultClass(users.Value, null));
         }
     }
 }

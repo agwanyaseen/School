@@ -34,12 +34,18 @@ namespace School.Middlewares
 
         private Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            var statusCode = HttpStatusCode.BadRequest;
-            var exceptionDetails = Result.Failure(exception.Message);
-            var error = new ResultClass<string>(null, exception.Message);
-            var jsonResult = JsonConvert.SerializeObject(error, Formatting.Indented);
-            httpContext.Response.StatusCode = (int)statusCode;
-            return httpContext.Response.WriteAsync(jsonResult);
+            //var statusCode = HttpStatusCode.BadRequest;
+            //var exceptionDetails = Result.Failure(exception.Message);
+            //var error = new ResultClass<string>(null, exception.Message);
+            ////var jsonResult = JsonConvert.SerializeObject(error, Formatting.Indented);
+            //httpContext.Response.StatusCode = (int)statusCode;
+
+            var exceptionResult = new ResultClass(null, exception.Message);
+            var jsonResult = JsonConvert.SerializeObject(exceptionResult);
+            httpContext.Response.StatusCode = 400;
+            var a = httpContext.Response.WriteAsync(jsonResult);
+
+            return a;
         }
 
     }
@@ -54,13 +60,13 @@ namespace School.Middlewares
     }
 
 
-    public class ResultClass<T>
+    public class ResultClass
     {
         [JsonProperty("result")]
-        public T Result { get; set; }
+        public object Result { get; set; }
 
         [JsonProperty("error")]
-        public T Error { get; set; }
+        public object Error { get; set; }
 
 
         public ResultClass()
@@ -68,8 +74,9 @@ namespace School.Middlewares
 
         }
 
-        public ResultClass(T result, T error)
+        public ResultClass(object result, object error)
         {
+            
             Result = result;
             Error = error;
         }
