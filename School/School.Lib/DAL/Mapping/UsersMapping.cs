@@ -19,6 +19,7 @@ namespace School.Lib.DAL.Mapping
             builder.Property(x => x.ContactNumber).IsRequired();
             builder.Property(x => x.Role).IsRequired();
             builder.Property(x => x.Type).IsRequired();
+            builder.Property(x => x.ImageUrl).IsRequired();
             builder.Property(x => x.Password).IsRequired();
             builder.HasIndex(e => e.Email).IsUnique();
             builder.HasIndex(e => e.ContactNumber).IsUnique();

@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using CSharpFunctionalExtensions;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Routing;
+
 namespace School.Middlewares
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
@@ -34,18 +38,13 @@ namespace School.Middlewares
 
         private Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            //var statusCode = HttpStatusCode.BadRequest;
-            //var exceptionDetails = Result.Failure(exception.Message);
-            //var error = new ResultClass<string>(null, exception.Message);
-            ////var jsonResult = JsonConvert.SerializeObject(error, Formatting.Indented);
-            //httpContext.Response.StatusCode = (int)statusCode;
-
             var exceptionResult = new ResultClass(null, exception.Message);
-            var jsonResult = JsonConvert.SerializeObject(exceptionResult);
+            JsonResult json = new JsonResult(exceptionResult);
+            var route = httpContext.GetRouteData();
+            var actionDescriptor = new ActionDescriptor();
             httpContext.Response.StatusCode = 400;
-            var a = httpContext.Response.WriteAsync(jsonResult);
-
-            return a;
+            ActionContext action = new ActionContext(httpContext,route,actionDescriptor);
+            return json.ExecuteResultAsync(action);
         }
 
     }

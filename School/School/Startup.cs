@@ -16,6 +16,8 @@ using Newtonsoft.Json;
 using School.Lib.DAL;
 using School.Lib.DAL.Context;
 using School.Middlewares;
+using School.Shared;
+
 namespace School
 {
     public class Startup
@@ -32,6 +34,7 @@ namespace School
         {
             services.AddDbContext<SchoolContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddTransient<UserRepo>();
+            services.AddTransient<IDocumentHandler, DocumentHelper>();
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc(options =>
             {
