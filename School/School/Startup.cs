@@ -34,6 +34,7 @@ namespace School
         {
             services.AddDbContext<SchoolContext>(x=>x.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddTransient<UserRepo>();
+            services.AddTransient<TeachersRepo>();
             services.AddTransient<IDocumentHandler, DocumentHelper>();
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMvc(options =>

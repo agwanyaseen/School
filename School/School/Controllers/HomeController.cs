@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using School.Dto.DomainModels;
 using School.Lib.DAL;
 using School.Lib.DAL.Context;
 using School.Shared;
@@ -39,9 +40,10 @@ namespace School.Controllers
         }
 
         [HttpGet("file")]
-        public IActionResult Post()
+        public IActionResult Post(Users user)
         {
-            throw new Exception("User Not Found");
+            _repo.AddNewUser(user);
+            return base.FromResult("User Added");
         }
 
         [HttpGet("login")]

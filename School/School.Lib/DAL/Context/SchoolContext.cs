@@ -15,6 +15,7 @@ namespace School.Lib.DAL.Context
 
         public DbSet<Users> Users { get; set; }
 
+        public DbSet<Teachers> Teachers { get; set; }
         public SchoolContext(DbContextOptions<SchoolContext> options): base(options)
         {
            
@@ -24,6 +25,7 @@ namespace School.Lib.DAL.Context
             modelBuilder.ApplyConfiguration(new UserRoleMapping());
             modelBuilder.ApplyConfiguration(new UserTypeMapping());
             modelBuilder.ApplyConfiguration(new UsersMapping());
+            modelBuilder.ApplyConfiguration(new TeachersMapping());
             base.OnModelCreating(modelBuilder);
         }
 
