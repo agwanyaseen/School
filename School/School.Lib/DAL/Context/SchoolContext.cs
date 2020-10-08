@@ -16,6 +16,13 @@ namespace School.Lib.DAL.Context
         public DbSet<Users> Users { get; set; }
 
         public DbSet<Teachers> Teachers { get; set; }
+
+        public DbSet<Standard> Standards { get; set; }
+
+        public DbSet<Students> Students { get; set; }
+
+        public DbSet<Division> Divisions { get; set; }
+
         public SchoolContext(DbContextOptions<SchoolContext> options): base(options)
         {
            
@@ -26,6 +33,9 @@ namespace School.Lib.DAL.Context
             modelBuilder.ApplyConfiguration(new UserTypeMapping());
             modelBuilder.ApplyConfiguration(new UsersMapping());
             modelBuilder.ApplyConfiguration(new TeachersMapping());
+            modelBuilder.ApplyConfiguration(new StandardMapping());
+            modelBuilder.ApplyConfiguration(new StudentsMapping());
+            modelBuilder.ApplyConfiguration(new DivisionMapping());
             base.OnModelCreating(modelBuilder);
         }
 
